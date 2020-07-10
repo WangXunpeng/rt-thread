@@ -1898,7 +1898,7 @@
 // <e> NRFX_GPIOTE_ENABLED - nrfx_gpiote - GPIOTE peripheral driver
 //==========================================================
 #ifndef NRFX_GPIOTE_ENABLED
-#define NRFX_GPIOTE_ENABLED 0
+#define NRFX_GPIOTE_ENABLED 1
 #endif
 // <o> NRFX_GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS - Number of lower power input pins 
 #ifndef NRFX_GPIOTE_CONFIG_NUM_OF_LOW_POWER_EVENTS
@@ -2902,7 +2902,7 @@
 // <e> NRFX_QSPI_ENABLED - nrfx_qspi - QSPI peripheral driver
 //==========================================================
 #ifndef NRFX_QSPI_ENABLED
-#define NRFX_QSPI_ENABLED 0
+#define NRFX_QSPI_ENABLED 1
 #endif
 // <o> NRFX_QSPI_CONFIG_SCK_DELAY - tSHSL, tWHSL and tSHWL in number of 16 MHz periods (62.5 ns).  <0-255> 
 
@@ -3010,7 +3010,7 @@
 #define NRFX_QSPI_PIN_IO3 NRF_QSPI_PIN_NOT_CONNECTED
 #endif
 
-// <o> NRFX_QSPI_CONFIG_IRQ_PRIORITY  - Interrupt priority
+// <o> NRFX_QSPI_DEFAULT_CONFIG_IRQ_PRIORITY  - Interrupt priority
  
 // <0=> 0 (highest) 
 // <1=> 1 
@@ -3021,8 +3021,8 @@
 // <6=> 6 
 // <7=> 7 
 
-#ifndef NRFX_QSPI_CONFIG_IRQ_PRIORITY
-#define NRFX_QSPI_CONFIG_IRQ_PRIORITY 6
+#ifndef NRFX_QSPI_DEFAULT_CONFIG_IRQ_PRIORITY
+#define NRFX_QSPI_DEFAULT_CONFIG_IRQ_PRIORITY 6
 #endif
 
 // </e>
@@ -3556,27 +3556,27 @@
 // <e> NRFX_SPI_ENABLED - nrfx_spi - SPI peripheral driver
 //==========================================================
 #ifndef NRFX_SPI_ENABLED
-#define NRFX_SPI_ENABLED 0
+#define NRFX_SPI_ENABLED 1
 #endif
 // <q> NRFX_SPI0_ENABLED  - Enable SPI0 instance
  
 
 #ifndef NRFX_SPI0_ENABLED
-#define NRFX_SPI0_ENABLED 0
+#define NRFX_SPI0_ENABLED 1
 #endif
 
 // <q> NRFX_SPI1_ENABLED  - Enable SPI1 instance
  
 
 #ifndef NRFX_SPI1_ENABLED
-#define NRFX_SPI1_ENABLED 0
+#define NRFX_SPI1_ENABLED 1
 #endif
 
 // <q> NRFX_SPI2_ENABLED  - Enable SPI2 instance
  
 
 #ifndef NRFX_SPI2_ENABLED
-#define NRFX_SPI2_ENABLED 0
+#define NRFX_SPI2_ENABLED 1
 #endif
 
 // <o> NRFX_SPI_MISO_PULL_CFG  - MISO pin pull configuration.
@@ -11694,9 +11694,11 @@
 #endif
 // </e>
 
-// </h> 
+// </h>
 //==========================================================
-
+#ifndef NRFX_SYSTICK_ENABLED
+#define NRFX_SYSTICK_ENABLED 1
+#endif
 // <<< end of configuration section >>>
 #endif //SDK_CONFIG_H
 
