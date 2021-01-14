@@ -1,9 +1,9 @@
 /* Define the flash max size */
-__max_flash_size = 768k;
+__max_flash_size = 1024k;
 
-__data_ram_size = 5k;
+__data_ram_size = 8k;
 __stack_ram_size = 4k;
-__comm_ram_size = 86k;
+__comm_ram_size = 83k;
 __heap_ram_size = 29k;
 
 __base = 0x10000000;
@@ -34,13 +34,8 @@ SECTIONS
     } > init
 
     .ram1 __ram1_vma : {
-        *hal_drivers**.o(.text*)
-        *hal_libraries*ab32vg1_hal**.o(.text*)
         *components*drivers**.o(.text* .rodata*)
-        *components*libc**.o(.text*)
-        *ab32vg1_hal_msp.o(.text*)
-        *components.o(.text* .rodata*)
-        *ipc.o(.text* .rodata*)
+        *device.o(.text*)
         . = ALIGN(32);
     } > ram1 AT > flash
 
@@ -66,20 +61,15 @@ SECTIONS
 
     .comm : {
         KEEP(*(.vector))
-        EXCLUDE_FILE (*romfs.o *lib_a**.o) *(.text*)
-        EXCLUDE_FILE (*romfs.o *lib_a**.o) *(.rodata*)
+        EXCLUDE_FILE(*components*finsh**.o *components*libc**.o *romfs.o *lib_a**.o) *(.text*)
+        *finsh*shell.o (.text*)
+        EXCLUDE_FILE (*components*libc**.o *romfs.o *lib_a**.o) *(.rodata*)
         *(.srodata*)
         *(.rela*)
         *(.data*)
 	    *(.sdata*)
         . = ALIGN(512);
     } > comm AT > flash
-
-    .flash : {
-        *romfs.o *(.text* .rodata*)
-        *lib_a**.o *(.text* .rodata*)
-        . = ALIGN(512);
-    } > flash
 
     .bss (NOLOAD):
     {
@@ -99,11 +89,17 @@ SECTIONS
     } > stack
     __irq_stack_size = __irq_stack - __irq_stack_start;
 
-    .heap : {
+    .heap (NOLOAD) : {
         __heap_start = .;
         . = __heap_ram_size;
         __heap_end = .;
     } > heap
+
+    .flash : {
+        *(.text*)
+        *(.rodata*)
+        . = ALIGN(512);
+    } > flash
 }
 
 /* Calc the lma */
